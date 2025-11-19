@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Celebrity Death Bingo – Deathwatch 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Celebrity Death Bingo: Deathwatch 2026 – Vegas neon edition. Countdown to the 2026 game with Sean, Maurice, Hugo, Róisín and Damien.">
 
   <!-- Google Fonts (no build tools needed) -->
   <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -35,7 +36,7 @@
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 1.5rem;
       overflow-x: hidden;
@@ -75,6 +76,7 @@
       grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       gap: 2rem;
       align-items: center;
+      margin-bottom: 2.2rem;
     }
 
     @media (max-width: 800px) {
@@ -107,6 +109,33 @@
       box-shadow:
         0 0 0 6px rgba(0, 0, 0, 0.75),
         0 0 40px rgba(255, 191, 60, 0.55);
+      overflow: hidden;
+    }
+
+    /* subtle flicker overlay */
+    .marquee-inner::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 40%,
+        transparent 60%,
+        rgba(255, 255, 255, 0.08) 100%
+      );
+      mix-blend-mode: screen;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .marquee-flash::after {
+      animation: marqueeSweep 0.7s ease-out;
+    }
+
+    @keyframes marqueeSweep {
+      0% { transform: translateX(-40%); opacity: 0.7; }
+      100% { transform: translateX(40%); opacity: 0; }
     }
 
     .marquee-inner::before {
@@ -188,6 +217,11 @@
     }
 
     /* Countdown */
+    .countdown-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
     .countdown {
       display: flex;
       flex-wrap: wrap;
@@ -236,6 +270,28 @@
     .countdown-footer strong {
       color: var(--accent-neon-red);
       font-weight: 600;
+    }
+
+    /* jackpot flash effect */
+    .countdown-flash .countdown-tile {
+      animation: countdownFlash 0.5s ease-out;
+    }
+
+    @keyframes countdownFlash {
+      0% {
+        box-shadow:
+          0 0 0 rgba(255, 255, 255, 0),
+          0 0 20px rgba(255, 255, 255, 0.2),
+          0 0 40px rgba(255, 191, 60, 0.4);
+        transform: translateY(0);
+      }
+      100% {
+        box-shadow:
+          0 0 0 rgba(255, 255, 255, 0),
+          0 0 30px rgba(255, 77, 243, 0.6),
+          0 0 60px rgba(37, 240, 255, 0.7);
+        transform: translateY(-1px);
+      }
     }
 
     .game-on {
@@ -407,6 +463,121 @@
       100% { transform: translate3d(40px, -40px, 0) rotate(18deg); opacity: 0.16; }
     }
 
+    /* COMING SOON STRIP */
+    .coming-soon {
+      background: rgba(3, 0, 15, 0.85);
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.4rem 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 0 24px rgba(0, 0, 0, 0.7),
+        0 0 24px rgba(37, 240, 255, 0.18);
+      backdrop-filter: blur(14px);
+    }
+
+    .coming-heading {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-neon-yellow);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .coming-heading::before,
+    .coming-heading::after {
+      content: "◆";
+      font-size: 0.9rem;
+      color: var(--accent-neon-pink);
+      text-shadow: 0 0 10px rgba(255, 77, 243, 0.8);
+    }
+
+    .coming-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .coming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .coming-card {
+      position: relative;
+      border-radius: 1.1rem;
+      padding: 0.9rem 0.95rem;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.1), transparent 55%),
+        linear-gradient(135deg, rgba(5, 0, 15, 0.9), rgba(40, 0, 70, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 0 16px rgba(255, 77, 243, 0.32),
+        0 0 18px rgba(37, 240, 255, 0.26);
+      overflow: hidden;
+    }
+
+    .coming-card::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255, 77, 243, 0.15),
+        rgba(37, 240, 255, 0.15),
+        rgba(255, 191, 60, 0.15),
+        rgba(255, 77, 243, 0.15)
+      );
+      opacity: 0;
+      pointer-events: none;
+      transform: rotate(0deg);
+    }
+
+    .coming-card:hover::before {
+      animation: cardGlowSweep 1s linear forwards;
+    }
+
+    @keyframes cardGlowSweep {
+      0% { opacity: 0; transform: rotate(0deg); }
+      100% { opacity: 1; transform: rotate(40deg); }
+    }
+
+    .coming-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+      color: var(--accent-neon-cyan);
+    }
+
+    .coming-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-neon-yellow);
+      margin-bottom: 0.4rem;
+    }
+
+    .coming-pill span {
+      font-size: 0.9em;
+      color: var(--accent-neon-pink);
+    }
+
+    .coming-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     /* Utility */
     .visually-hidden {
       position: absolute;
@@ -417,6 +588,15 @@
       overflow: hidden;
       clip: rect(0, 0, 0, 0);
       border: 0;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1.1rem;
+      }
+      .coming-soon {
+        padding: 1.1rem 1rem 1.2rem;
+      }
     }
   </style>
 </head>
@@ -433,15 +613,17 @@
           <span></span><span></span><span></span><span></span><span></span>
         </div>
 
-        <div class="marquee-inner">
+        <div class="marquee-inner" id="marquee-inner">
           <p class="subtitle">Celebrity Death Bingo</p>
           <h1 id="site-title" class="title-main">Deathwatch 2026</h1>
           <p class="title-sub">
             Countdown to the first <span>grim bets</span> of the year.
           </p>
 
-          <div id="countdown" class="countdown" aria-live="polite">
-            <!-- JS will populate countdown tiles -->
+          <div class="countdown-wrapper">
+            <div id="countdown" class="countdown" aria-live="polite">
+              <!-- JS will populate countdown tiles -->
+            </div>
           </div>
           <p id="countdown-footer" class="countdown-footer">
             Starts at <strong>00:00</strong> on <strong>1 January 2026</strong> (Dublin time).
@@ -490,6 +672,40 @@
         </p>
       </aside>
     </main>
+
+    <!-- COMING SOON STRIP -->
+    <section class="coming-soon" aria-label="Coming soon features">
+      <h2 class="coming-heading">Coming Soon to Deathwatch 2026</h2>
+      <p class="coming-sub">
+        The lights are on and the pit bosses are warming up. As we get closer to January, more of the casino will unlock.
+      </p>
+
+      <div class="coming-grid">
+        <article class="coming-card">
+          <div class="coming-pill"><span>🎯</span> Feature</div>
+          <h3 class="coming-title">Player Picks</h3>
+          <p class="coming-text">
+            Each player’s doomed darlings, locked in before the ball drops. Neon lists, bad taste, worse odds.
+          </p>
+        </article>
+
+        <article class="coming-card">
+          <div class="coming-pill"><span>📈</span> Feature</div>
+          <h3 class="coming-title">Scoreboard</h3>
+          <p class="coming-text">
+            Live tracking as the year goes sideways. High-rollers, heartbreakers, and the spreadsheet of shame.
+          </p>
+        </article>
+
+        <article class="coming-card">
+          <div class="coming-pill"><span>💀</span> Feature</div>
+          <h3 class="coming-title">Hall of Infamy</h3>
+          <p class="coming-text">
+            Past years’ most outrageous hits and misses, immortalised in flickering neon for future judgment.
+          </p>
+        </article>
+      </div>
+    </section>
   </div>
 
   <span class="visually-hidden" aria-hidden="false" id="countdown-description">
@@ -502,6 +718,8 @@
 
     const countdownContainer = document.getElementById("countdown");
     const countdownFooter = document.getElementById("countdown-footer");
+    const marqueeInner = document.getElementById("marquee-inner");
+    const countdownWrapper = countdownContainer.parentElement;
 
     function createCountdownTiles() {
       countdownContainer.innerHTML = "";
@@ -564,6 +782,16 @@
       return false; // still counting
     }
 
+    // Little "jackpot" flash on the countdown & marquee sweep
+    function triggerCountdownFlash() {
+      countdownWrapper.classList.add("countdown-flash");
+      marqueeInner.classList.add("marquee-flash");
+      setTimeout(() => {
+        countdownWrapper.classList.remove("countdown-flash");
+        marqueeInner.classList.remove("marquee-flash");
+      }, 600);
+    }
+
     // Init
     createCountdownTiles();
     let finished = updateCountdown();
@@ -571,13 +799,15 @@
     if (!finished) {
       setInterval(() => {
         const done = updateCountdown();
-        if (done) {
-          // If it's done, we don't strictly need to clearInterval,
-          // but you could keep a handle and clear it if you prefer.
+        if (!done) {
+          // occasional flash, roughly every 15 seconds
+          triggerCountdownFlash();
         }
-      }, 1000);
+      }, 15000);
+
+      // also tick seconds every 1s
+      setInterval(updateCountdown, 1000);
     }
   </script>
 </body>
 </html>
-<!-- test -->
