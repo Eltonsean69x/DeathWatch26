@@ -473,6 +473,7 @@
         0 0 24px rgba(0, 0, 0, 0.7),
         0 0 24px rgba(37, 240, 255, 0.18);
       backdrop-filter: blur(14px);
+      margin-bottom: 2rem;
     }
 
     .coming-heading {
@@ -578,6 +579,219 @@
       line-height: 1.5;
     }
 
+    /* ROULETTE / ODDS PREVIEW SECTION */
+    .roulette-section {
+      background: radial-gradient(circle at top, #0b3b2e, #031712 60%, #02060b 100%);
+      border-radius: 1.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 0 28px rgba(0, 0, 0, 0.9),
+        0 0 34px rgba(0, 0, 0, 0.7);
+      padding: 1.4rem 1.4rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roulette-section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.05) 0,
+        rgba(255, 255, 255, 0.05) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .roulette-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 1.5rem;
+      align-items: stretch;
+      z-index: 1;
+    }
+
+    @media (max-width: 800px) {
+      .roulette-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .roulette-heading {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-neon-yellow);
+      margin-bottom: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .roulette-heading::before {
+      content: "♣";
+      color: var(--accent-neon-cyan);
+      text-shadow: 0 0 8px rgba(37, 240, 255, 0.8);
+    }
+
+    .roulette-table {
+      border-radius: 1.2rem;
+      padding: 0.9rem;
+      background:
+        radial-gradient(circle at top, rgba(21, 92, 66, 0.9), rgba(6, 44, 30, 0.95)),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0.05));
+      border: 2px solid rgba(255, 191, 60, 0.8);
+      box-shadow:
+        0 0 22px rgba(0, 0, 0, 0.9),
+        0 0 26px rgba(0, 0, 0, 0.7);
+    }
+
+    .roulette-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .roulette-cell {
+      border-radius: 0.4rem;
+      padding: 0.4rem 0.3rem;
+      text-align: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roulette-cell span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .roulette-cell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), transparent);
+      mix-blend-mode: screen;
+    }
+
+    .roulette-cell.red {
+      background: radial-gradient(circle at top, #bb1e2c, #5d0410);
+    }
+
+    .roulette-cell.black {
+      background: radial-gradient(circle at top, #16151a, #040308);
+    }
+
+    .roulette-cell.other {
+      background: radial-gradient(circle at top, #13704c, #063423);
+    }
+
+    .roulette-footer-text {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .roulette-footer-text span {
+      color: var(--accent-neon-yellow);
+    }
+
+    /* Odds board */
+    .odds-board {
+      border-radius: 1.2rem;
+      background: radial-gradient(circle at top, #10151b, #05070a 60%);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 0 22px rgba(0, 0, 0, 0.9),
+        0 0 26px rgba(0, 0, 0, 0.7);
+      padding: 0.9rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .odds-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-neon-cyan);
+    }
+
+    .odds-sub {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .odds-list {
+      margin-top: 0.2rem;
+      border-radius: 0.6rem;
+      background: repeating-linear-gradient(
+        180deg,
+        #131820 0,
+        #131820 24px,
+        #11151c 24px,
+        #11151c 25px
+      );
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 0.35rem 0.6rem;
+      max-height: 190px;
+      overflow: hidden;
+    }
+
+    .odds-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      padding: 0.3rem 0.1rem;
+      color: #f0f4ff;
+    }
+
+    .odds-row span.name {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+
+    .odds-row span.odds {
+      font-family: "Monoton", cursive;
+      letter-spacing: 0.08em;
+      font-size: 0.86rem;
+      color: var(--accent-neon-yellow);
+      text-shadow:
+        0 0 4px rgba(255, 191, 60, 0.9),
+        0 0 10px rgba(255, 191, 60, 0.9);
+    }
+
+    .odds-row.dim {
+      opacity: 0.6;
+    }
+
+    .odds-footnote {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 0.3rem;
+    }
+
+    .odds-footnote strong {
+      color: var(--accent-neon-pink);
+      font-weight: 600;
+    }
+
     /* Utility */
     .visually-hidden {
       position: absolute;
@@ -596,6 +810,9 @@
       }
       .coming-soon {
         padding: 1.1rem 1rem 1.2rem;
+      }
+      .roulette-section {
+        padding: 1.1rem 1rem 1.3rem;
       }
     }
   </style>
@@ -704,6 +921,69 @@
             Past years’ most outrageous hits and misses, immortalised in flickering neon for future judgment.
           </p>
         </article>
+      </div>
+    </section>
+
+    <!-- ROULETTE FELT + ODDS BOARD PREVIEW -->
+    <section class="roulette-section" aria-label="Roulette-style picks and house odds preview">
+      <div class="roulette-inner">
+        <div>
+          <h2 class="roulette-heading">Roulette Felt Preview</h2>
+          <div class="roulette-table">
+            <div class="roulette-grid" aria-hidden="true">
+              <div class="roulette-cell red"><span>Pick 1</span></div>
+              <div class="roulette-cell black"><span>Pick 2</span></div>
+              <div class="roulette-cell red"><span>Pick 3</span></div>
+
+              <div class="roulette-cell black"><span>Pick 4</span></div>
+              <div class="roulette-cell red"><span>Pick 5</span></div>
+              <div class="roulette-cell black"><span>Pick 6</span></div>
+
+              <div class="roulette-cell other"><span>Low (1–18)</span></div>
+              <div class="roulette-cell other"><span>Even</span></div>
+              <div class="roulette-cell other"><span>High (19–36)</span></div>
+            </div>
+            <p class="roulette-footer-text">
+              Future layout for <span>2026 picks</span> – each name staked on the felt like a bad idea at 3&nbsp;AM.
+            </p>
+          </div>
+        </div>
+
+        <div class="odds-board">
+          <h3 class="odds-title">House Odds Board (Preview)</h3>
+          <p class="odds-sub">
+            Placeholder odds board for when the whispers start. Names and numbers to be confirmed
+            once the game officially opens.
+          </p>
+
+          <div class="odds-list" aria-hidden="true">
+            <div class="odds-row">
+              <span class="name">Redacted #1</span>
+              <span class="odds">Evs</span>
+            </div>
+            <div class="odds-row">
+              <span class="name">Redacted #2</span>
+              <span class="odds">2/1</span>
+            </div>
+            <div class="odds-row">
+              <span class="name">Redacted #3</span>
+              <span class="odds">5/1</span>
+            </div>
+            <div class="odds-row dim">
+              <span class="name">Long Shot A</span>
+              <span class="odds">20/1</span>
+            </div>
+            <div class="odds-row dim">
+              <span class="name">Long Shot B</span>
+              <span class="odds">50/1</span>
+            </div>
+          </div>
+
+          <p class="odds-footnote">
+            <strong>Note:</strong> All names and odds here are just staging lights. The real degeneracy
+            arrives with the 2026 pick list.
+          </p>
+        </div>
       </div>
     </section>
   </div>
