@@ -834,7 +834,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1.4rem;
     }
 
     .dice-button {
@@ -842,47 +842,63 @@
       border: none;
       cursor: pointer;
       border-radius: 1.2rem;
-      padding: 0.9rem 1.1rem;
-      background:
-        radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.9), transparent 50%),
-        radial-gradient(circle at bottom, #ff4df3, #a90088);
+      padding: 0;
+      background: radial-gradient(circle at 30% 20%, #ffffff, #e3e6f0);
       box-shadow:
-        0 0 16px rgba(255, 77, 243, 0.9),
-        0 0 28px rgba(37, 240, 255, 0.65);
+        0 10px 24px rgba(0, 0, 0, 0.7),
+        0 0 18px rgba(37, 240, 255, 0.4);
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.35rem;
-      min-width: 130px;
+      min-width: 150px;
+      min-height: 150px;
       transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-      color: #240021;
+      color: #171722;
+      perspective: 800px;
+    }
+
+    .dice-button::before {
+      /* subtle 3D edge */
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 2px solid rgba(0, 0, 0, 0.06);
+      box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.12),
+        inset 0 12px 18px rgba(255, 255, 255, 0.9);
+      pointer-events: none;
     }
 
     .dice-button:focus-visible {
       outline: 2px solid #ffffff;
-      outline-offset: 3px;
+      outline-offset: 4px;
     }
 
     .dice-face {
-      font-size: 2.4rem;
+      font-size: 3rem;
       text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.9),
-        0 0 22px rgba(255, 255, 255, 0.9);
+        0 0 4px rgba(0, 0, 0, 0.3),
+        0 0 12px rgba(0, 0, 0, 0.6);
+      transform: translateZ(8px);
     }
 
     .dice-label {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       font-weight: 600;
+      margin-top: 0.4rem;
+      color: #44465a;
+      transform: translateZ(8px);
     }
 
     .dice-button:hover {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-4px) scale(1.03) rotateX(8deg);
       box-shadow:
-        0 0 22px rgba(255, 77, 243, 1),
-        0 0 34px rgba(37, 240, 255, 0.8);
+        0 14px 32px rgba(0, 0, 0, 0.8),
+        0 0 26px rgba(37, 240, 255, 0.6);
     }
 
     .dice-button.rolling {
@@ -891,10 +907,10 @@
 
     @keyframes diceShake {
       0% { transform: translateX(0) rotate(0deg); }
-      20% { transform: translateX(-3px) rotate(-6deg); }
-      40% { transform: translateX(3px) rotate(6deg); }
-      60% { transform: translateX(-2px) rotate(-4deg); }
-      80% { transform: translateX(2px) rotate(4deg); }
+      20% { transform: translateX(-4px) rotate(-6deg); }
+      40% { transform: translateX(4px) rotate(6deg); }
+      60% { transform: translateX(-3px) rotate(-4deg); }
+      80% { transform: translateX(3px) rotate(4deg); }
       100% { transform: translateX(0) rotate(0deg); }
     }
 
@@ -1253,12 +1269,18 @@
 
     // Placeholder pool of mystery names – you can edit this array locally
     const mysteryPool = [
-      "Mystery Pick Alpha",
-      "Mystery Pick Bravo",
-      "Mystery Pick Charlie",
-      "Mystery Pick Delta",
-      "Mystery Pick Echo",
-      "Mystery Pick Foxtrot"
+      "Arnold Schwarzenegger",
+      "Jim who sells the spuds down the road",
+      "Mystic Meg comes back to life and dies again",
+      "Rudolph (The Reindeer)",
+      "Warren Beaty",
+      "Roy Hodgson"
+      "Roy Hodgson again"
+      "Top of the pops"
+      "The Eurovision"
+      "Summer"
+      "Your Diet"
+      "My wifes sex drive"
     ];
 
     const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
