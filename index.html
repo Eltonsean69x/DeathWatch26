@@ -462,14 +462,13 @@
     }
     .dice-heading::before{content:"🎲";font-size:1rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
 
-    /* ✅ CENTER the dice content */
+    /* ✅ hug the left for the dice content */
     .dice-row{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center;
-      gap:1.4rem;
-      width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:1.4rem;
     }
     .dice-text-block{
       flex:0 1 560px;
@@ -569,12 +568,11 @@
 
     /* ✅ CENTER the slot content */
     .slot-inner{
-      display:flex;
-      flex-wrap:wrap;
-      gap:1.4rem;
-      align-items:center;
-      justify-content:center;
-      width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.4rem;
+  align-items:center;
+  justify-content:flex-start;
     }
     .slot-text{
       flex:0 1 560px;
