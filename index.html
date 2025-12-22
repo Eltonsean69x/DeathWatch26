@@ -461,7 +461,22 @@
       gap:.4rem;
     }
     .dice-heading::before{content:"🎲";font-size:1rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
-    .dice-row{display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem}
+
+    /* ✅ CENTER the dice content */
+    .dice-row{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:center;
+      gap:1.4rem;
+      width:100%;
+    }
+    .dice-text-block{
+      flex:0 1 560px;
+      min-width:260px;
+      text-align:left;
+    }
+
     .dice-button{
       position:relative;
       border:none;
@@ -517,7 +532,7 @@
       80%{transform:translateX(3px) rotate(4deg)}
       100%{transform:translateX(0) rotate(0deg)}
     }
-    .dice-text-block{flex:1;min-width:220px}
+
     .dice-helper{font-size:.8rem;color:var(--text-muted);margin-bottom:.45rem}
     .dice-result{
       font-size:.9rem;
@@ -551,7 +566,22 @@
       gap:.4rem;
     }
     .slot-heading::before{content:"💀";filter:drop-shadow(0 0 8px rgba(255,255,255,.8))}
-    .slot-inner{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center}
+
+    /* ✅ CENTER the slot content */
+    .slot-inner{
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.4rem;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+    }
+    .slot-text{
+      flex:0 1 560px;
+      min-width:260px;
+      text-align:left;
+    }
+
     .slot-machine{
       flex:0 0 260px;
       max-width:100%;
@@ -626,7 +656,6 @@
       box-shadow:0 6px 14px rgba(0,0,0,.8), 0 0 22px rgba(255,191,60,.9);
     }
     .slot-button:disabled{opacity:.6;cursor:default}
-    .slot-text{flex:1;min-width:220px}
     .slot-helper{font-size:.8rem;color:var(--text-muted);margin-bottom:.45rem}
     .slot-result{
       font-size:.9rem;
@@ -647,6 +676,9 @@
       body{padding:1.1rem}
       .coming-soon,.roulette-section,.dice-section,.slot-section{padding:1.1rem 1rem 1.3rem}
       .marquee-inner{padding:1.8rem 1.1rem 1.9rem}
+
+      /* Mobile: centered text blocks look better */
+      .dice-text-block,.slot-text{text-align:left}
     }
   </style>
 </head>
@@ -695,8 +727,8 @@
           <p class="coming-text">Live tracking once the game begins.</p>
         </article>
         <article class="coming-card">
-          <h3 class="coming-title">Archive</h3>
-          <p class="coming-text">Past years, summaries, and the usual nonsense.</p>
+          <h3 class="coming-title">Rules</h3>
+          <p class="coming-text">Game rules and deadlines. (To be posted before the table opens.)</p>
         </article>
       </div>
     </section>
@@ -778,6 +810,30 @@
   </div>
 
   <script>
+    // ----------------------------
+    // Random helpers (crypto-first)
+    // ----------------------------
+    function randInt(maxExclusive) {
+      // returns integer in [0, maxExclusive)
+      if (maxExclusive <= 0) return 0;
+
+      const cryptoObj = window.crypto || window.msCrypto;
+      if (cryptoObj && cryptoObj.getRandomValues) {
+        const arr = new Uint32Array(1);
+        cryptoObj.getRandomValues(arr);
+        return arr[0] % maxExclusive;
+      }
+      return Math.floor(Math.random() * maxExclusive);
+    }
+
+    function shuffleInPlace(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = randInt(i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     // Countdown: Jan 1st 2026 @ 00:00 Dublin time (UTC in January)
     const targetDate = new Date("2026-01-01T00:00:00Z");
 
@@ -861,7 +917,9 @@
       setInterval(updateCountdown, 1000);
     }
 
-    // Mystery Dice
+    // ----------------------------
+    // Mystery Dice (shuffle-bag)
+    // ----------------------------
     const diceButton = document.getElementById("dice-button");
     const diceFace = document.getElementById("dice-face");
     const diceResultText = document.getElementById("dice-result-text");
@@ -902,6 +960,14 @@
       "Summer in Ireland"
     ];
 
+    // A shuffled "bag" so it doesn't repeat until it's run through most items
+    let mysteryBag = [];
+
+    function refillMysteryBag() {
+      mysteryBag = mysteryPool.slice();
+      shuffleInPlace(mysteryBag);
+    }
+
     const diceFaces = ["⚀","⚁","⚂","⚃","⚄","⚅"];
     let diceRolling = false;
 
@@ -913,24 +979,33 @@
       let tick = 0;
       const maxTicks = 8;
       const tickInterval = setInterval(() => {
-        diceFace.textContent = diceFaces[Math.floor(Math.random() * diceFaces.length)];
+        diceFace.textContent = diceFaces[randInt(diceFaces.length)];
         tick++;
         if (tick >= maxTicks) clearInterval(tickInterval);
       }, 60);
 
       setTimeout(() => {
         diceButton.classList.remove("rolling");
-        const pick = mysteryPool[Math.floor(Math.random() * mysteryPool.length)];
+
+        if (mysteryBag.length === 0) refillMysteryBag();
+        const pick = mysteryBag.pop();
+
         diceResultText.classList.remove("reveal");
         void diceResultText.offsetWidth;
         diceResultText.innerHTML = 'The dice whispers: <span>' + pick + "</span>.";
         diceResultText.classList.add("reveal");
-        diceFace.textContent = diceFaces[Math.floor(Math.random() * diceFaces.length)];
+
+        diceFace.textContent = diceFaces[randInt(diceFaces.length)];
         diceRolling = false;
       }, 600);
     });
 
-    // Skull Slot Machine
+    // Prime the bag on load
+    refillMysteryBag();
+
+    // ----------------------------
+    // Skull Slot Machine (crypto rand)
+    // ----------------------------
     const slotButton = document.getElementById("slot-button");
     const reel1 = document.getElementById("slot-reel-1");
     const reel2 = document.getElementById("slot-reel-2");
@@ -940,18 +1015,19 @@
     const slotSymbols = ["💀","💰","🍒","⭐","🎲","🕯️","🎰"];
     let slotSpinning = false;
 
-    function randomSymbol(){return slotSymbols[Math.floor(Math.random()*slotSymbols.length)]}
+    function randomSymbol(){ return slotSymbols[randInt(slotSymbols.length)] }
 
     slotButton.addEventListener("click", () => {
       if (slotSpinning) return;
       slotSpinning = true;
       slotButton.disabled = true;
 
-      const t1 = setInterval(() => reel1.textContent = randomSymbol(), 70);
-      const t2 = setInterval(() => reel2.textContent = randomSymbol(), 80);
-      const t3 = setInterval(() => reel3.textContent = randomSymbol(), 90);
+      // Slightly varied intervals so it feels less "patterned"
+      const t1 = setInterval(() => reel1.textContent = randomSymbol(), 65 + randInt(25));
+      const t2 = setInterval(() => reel2.textContent = randomSymbol(), 70 + randInt(25));
+      const t3 = setInterval(() => reel3.textContent = randomSymbol(), 75 + randInt(25));
 
-      const spinDuration = 900 + Math.random() * 500;
+      const spinDuration = 900 + randInt(600);
 
       setTimeout(() => {
         clearInterval(t1); clearInterval(t2); clearInterval(t3);
