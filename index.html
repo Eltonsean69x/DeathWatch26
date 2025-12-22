@@ -31,12 +31,11 @@
       min-height:100vh;
       display:flex;
       justify-content:center;
-      padding:1.5rem;
+      padding:1.2rem;
       overflow-x:hidden;
       position:relative;
     }
 
-    /* starry background */
     body::before, body::after{
       content:"";
       position:fixed;
@@ -55,1001 +54,292 @@
 
     .page-wrapper{width:100%;max-width:1100px;margin:0 auto}
 
-    /* Floating chips */
-    .chip{
-      position:fixed;
-      width:120px;height:120px;border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 55%),
-        radial-gradient(circle at 70% 70%, rgba(255,0,111,.6), transparent 65%),
-        radial-gradient(circle at 20% 80%, rgba(37,240,255,.7), transparent 60%);
-      border:6px dashed rgba(255,255,255,.85);
-      opacity:.12;
-      filter:blur(.4px);
-      pointer-events:none;
-      z-index:-1;
-      animation:floatChip 18s infinite alternate ease-in-out;
-    }
-    .chip.chip-left{top:10%;left:-40px;animation-delay:-4s}
-    .chip.chip-right{bottom:-60px;right:-40px;animation-delay:-9s}
-    @keyframes floatChip{
-      0%{transform:translate3d(0,0,0) rotate(0deg);opacity:.08}
-      100%{transform:translate3d(40px,-40px,0) rotate(18deg);opacity:.16}
-    }
-
-    /* SINGLE HERO ROW (full width marquee) */
-    .hero-row{
-      margin-bottom:2.2rem;
-    }
+    /* HERO */
+    .hero-row{margin-bottom:2rem}
 
     .marquee-shell{
       position:relative;
-      padding:1.25rem;
+      padding:1.1rem;
       border-radius:2rem;
       background: radial-gradient(circle at top, #33004b, #050015 55%);
-      box-shadow:
-        0 0 40px rgba(255,77,243,.25),
-        0 0 60px rgba(37,240,255,.15),
-        0 0 0 2px rgba(255,255,255,.06);
       border:2px solid rgba(255,255,255,.15);
-      overflow:hidden;
-    }
-
-    .marquee-lights{
-      position:absolute;inset:0;border-radius:2rem;pointer-events:none;
-    }
-    .marquee-lights span{
-      position:absolute;width:9px;height:9px;border-radius:999px;
-      background: radial-gradient(circle, #fff 0%, #ffe66b 40%, #ff8a3c 65%, transparent 70%);
-      box-shadow:0 0 12px rgba(255,230,107,.9);
-      animation:lightsBlink 1.4s infinite alternate;
-    }
-    .marquee-lights span:nth-child(1){top:10px;left:10%;animation-delay:0s}
-    .marquee-lights span:nth-child(2){top:10px;left:32%;animation-delay:.2s}
-    .marquee-lights span:nth-child(3){top:10px;left:54%;animation-delay:.4s}
-    .marquee-lights span:nth-child(4){top:10px;left:76%;animation-delay:.6s}
-    .marquee-lights span:nth-child(5){bottom:10px;left:18%;animation-delay:.8s}
-    .marquee-lights span:nth-child(6){bottom:10px;left:40%;animation-delay:1s}
-    .marquee-lights span:nth-child(7){bottom:10px;left:62%;animation-delay:.3s}
-    .marquee-lights span:nth-child(8){bottom:10px;left:84%;animation-delay:.7s}
-    .marquee-lights span:nth-child(9){top:28%;left:10px;animation-delay:.5s}
-    .marquee-lights span:nth-child(10){top:62%;right:10px;animation-delay:.9s}
-    @keyframes lightsBlink{
-      0%{transform:scale(.8);opacity:.4}
-      100%{transform:scale(1);opacity:1}
     }
 
     .marquee-inner{
       border-radius:1.5rem;
       border:4px solid var(--accent-gold);
-      padding:2.1rem 1.7rem 2.1rem;
-      background: radial-gradient(circle at top, #3b003d 0%, #0c0015 50%, #000000 100%);
-      position:relative;
+      padding:1.8rem 1.3rem;
+      background: radial-gradient(circle at top, #3b003d, #0c0015 60%, #000);
       text-align:center;
-      box-shadow:
-        0 0 0 6px rgba(0,0,0,.75),
-        0 0 40px rgba(255,191,60,.55);
-      overflow:hidden;
-    }
-
-    .marquee-inner::before{
-      content:"";
-      position:absolute;inset:0;border-radius:inherit;
-      border:2px dotted rgba(255,255,255,.18);
-      pointer-events:none;
-    }
-
-    .marquee-inner::after{
-      content:"";
-      position:absolute;inset:-40%;
-      background:linear-gradient(120deg, rgba(255,255,255,.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,.08) 100%);
-      mix-blend-mode:screen;
-      opacity:0;pointer-events:none;
-    }
-    .marquee-flash::after{animation:marqueeSweep .7s ease-out}
-    @keyframes marqueeSweep{
-      0%{transform:translateX(-40%);opacity:.7}
-      100%{transform:translateX(40%);opacity:0}
     }
 
     .subtitle{
-      font-size:.82rem;
+      font-size:.75rem;
       letter-spacing:.2em;
       text-transform:uppercase;
       color:var(--accent-neon-yellow);
-      margin-bottom:.5rem;
-      text-shadow:0 0 4px rgba(0,0,0,.9), 0 0 12px rgba(255,191,60,.6);
+      margin-bottom:.4rem;
     }
 
-    /* Slightly larger title for full-width hero */
+    /* 🔧 MOBILE SAFE TITLE */
     .title-main{
       font-family:"Monoton",cursive;
-      font-size:clamp(2.6rem, 4.2vw + 1.3rem, 4.6rem);
-      line-height:1.03;
-      text-transform:uppercase;
+      font-size:clamp(2.2rem, 6vw, 4.2rem);
+      line-height:1.05;
       color:var(--accent-neon-pink);
       margin-bottom:.6rem;
-      text-shadow:
-        0 0 6px rgba(255,77,243,.9),
-        0 0 24px rgba(255,77,243,.9),
-        0 0 40px rgba(37,240,255,.7),
-        0 0 60px rgba(0,0,0,1);
+      word-break:keep-all;
     }
 
     .title-sub{
-      font-size:1rem;
+      font-size:.95rem;
       color:var(--text-muted);
-      margin-bottom:1.8rem;
+      margin-bottom:1.4rem;
     }
     .title-sub span{color:var(--accent-neon-cyan);font-weight:600}
 
-    /* Countdown */
-    .countdown-wrapper{position:relative;display:inline-block}
+    /* COUNTDOWN */
     .countdown{
-      display:flex;flex-wrap:wrap;justify-content:center;
-      gap:.8rem;margin-bottom:.75rem;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
     }
     .countdown-tile{
-      min-width:78px;
-      padding:.7rem .55rem;
+      min-width:68px;
+      padding:.6rem .45rem;
       border-radius:1rem;
       background: linear-gradient(145deg, rgba(11,1,30,.95), rgba(40,0,60,.95));
-      border:1px solid rgba(255,255,255,.2);
-      box-shadow:0 0 12px rgba(255,77,243,.45), inset 0 0 18px rgba(0,0,0,.9);
       text-align:center;
     }
     .countdown-number{
       font-family:"Monoton",cursive;
-      font-size:1.7rem;
-      letter-spacing:.08em;
+      font-size:1.5rem;
       color:var(--accent-neon-cyan);
-      text-shadow:0 0 6px rgba(37,240,255,1), 0 0 14px rgba(37,240,255,1);
-      margin-bottom:.15rem;
     }
     .countdown-label{
-      font-size:.7rem;
-      letter-spacing:.18em;
+      font-size:.65rem;
+      letter-spacing:.16em;
       text-transform:uppercase;
       color:var(--accent-neon-yellow);
     }
 
     .countdown-footer{
-      font-size:.85rem;
-      margin-top:.55rem;
+      font-size:.8rem;
       color:var(--text-muted);
     }
-    .countdown-footer strong{color:var(--accent-neon-red);font-weight:600}
 
-    .countdown-flash .countdown-tile{animation:countdownFlash .5s ease-out}
-    @keyframes countdownFlash{
-      0%{
-        box-shadow:0 0 0 rgba(255,255,255,0),
-          0 0 20px rgba(255,255,255,.2),
-          0 0 40px rgba(255,191,60,.4);
-        transform:translateY(0);
-      }
-      100%{
-        box-shadow:0 0 0 rgba(255,255,255,0),
-          0 0 30px rgba(255,77,243,.6),
-          0 0 60px rgba(37,240,255,.7);
-        transform:translateY(-1px);
-      }
-    }
-
-    .game-on{
-      font-family:"Monoton",cursive;
-      font-size:2rem;
-      color:var(--accent-neon-yellow);
-      text-shadow:0 0 8px rgba(255,191,60,1), 0 0 24px rgba(255,77,243,.8);
-      animation:gameOnPulse 1.3s infinite alternate;
-      margin-bottom:.35rem;
-    }
-    @keyframes gameOnPulse{
-      0%{transform:scale(.98);opacity:.8}
-      100%{transform:scale(1.03);opacity:1}
-    }
-
-    /* COMING SOON */
-    .coming-soon{
+    /* SECTIONS */
+    section{
+      margin-bottom:2rem;
+      border-radius:1.6rem;
+      padding:1.3rem 1.2rem;
       background: rgba(3,0,15,.85);
-      border-radius:1.5rem;
-      padding:1.3rem 1.4rem 1.4rem;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 0 24px rgba(0,0,0,.7), 0 0 24px rgba(37,240,255,.18);
-      backdrop-filter: blur(14px);
-      margin-bottom:2rem;
     }
-    .coming-heading{
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent-neon-yellow);
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      margin-bottom:.9rem;
-    }
-    .coming-heading::before,.coming-heading::after{
-      content:"◆";
-      font-size:.9rem;
-      color:var(--accent-neon-pink);
-      text-shadow:0 0 10px rgba(255,77,243,.8);
-    }
-    .coming-sub{font-size:.8rem;color:var(--text-muted);margin-bottom:1rem}
-    .coming-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
-      gap:.9rem;
-    }
-    .coming-card{
-      position:relative;
-      border-radius:1.1rem;
-      padding:.9rem .95rem;
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,.1), transparent 55%),
-        linear-gradient(135deg, rgba(5,0,15,.9), rgba(40,0,70,.9));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 0 16px rgba(255,77,243,.32), 0 0 18px rgba(37,240,255,.26);
-      overflow:hidden;
-    }
-    .coming-title{
-      font-size:.85rem;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      margin-bottom:.4rem;
-      color:var(--accent-neon-cyan);
-    }
-    .coming-text{font-size:.78rem;color:var(--text-muted);line-height:1.5}
 
-    /* Roulette + odds preview */
-    .roulette-section{
-      background: radial-gradient(circle at top, #0b3b2e, #031712 60%, #02060b 100%);
-      border-radius:1.6rem;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 0 28px rgba(0,0,0,.9), 0 0 34px rgba(0,0,0,.7);
-      padding:1.4rem 1.4rem 1.6rem;
-      position:relative;
-      overflow:hidden;
-      margin-bottom:2rem;
-    }
-    .roulette-section::before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background-image:repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0, rgba(255,255,255,.05) 2px, transparent 2px, transparent 6px);
-      opacity:.22;
-      pointer-events:none;
-    }
-    .roulette-inner{
-      position:relative;
-      display:grid;
-      grid-template-columns:minmax(0, 3fr) minmax(0, 2.2fr);
-      gap:1.5rem;
-      align-items:stretch;
-      z-index:1;
-    }
-    @media (max-width:800px){.roulette-inner{grid-template-columns:1fr}}
-
-    .roulette-heading{
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent-neon-yellow);
-      margin-bottom:.8rem;
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-    }
-    .roulette-heading::before{
-      content:"♣";
-      color:var(--accent-neon-cyan);
-      text-shadow:0 0 8px rgba(37,240,255,.8);
-    }
-    .roulette-table{
-      border-radius:1.2rem;
-      padding:.9rem;
-      background:
-        radial-gradient(circle at top, rgba(21,92,66,.9), rgba(6,44,30,.95)),
-        linear-gradient(135deg, rgba(0,0,0,.6), rgba(255,255,255,.05));
-      border:2px solid rgba(255,191,60,.8);
-      box-shadow:0 0 22px rgba(0,0,0,.9), 0 0 26px rgba(0,0,0,.7);
-    }
-    .roulette-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:.4rem;
-      margin-bottom:.6rem;
-    }
-    .roulette-cell{
-      border-radius:.4rem;
-      padding:.4rem .3rem;
-      text-align:center;
-      font-size:.7rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      border:1px solid rgba(255,255,255,.25);
-      box-shadow: inset 0 0 6px rgba(0,0,0,.7);
-      position:relative;
-      overflow:hidden;
-    }
-    .roulette-cell::before{
-      content:"";
-      position:absolute;inset:0;opacity:.16;
-      background:linear-gradient(135deg, rgba(255,255,255,.7), transparent);
-      mix-blend-mode:screen;
-    }
-    .roulette-cell span{position:relative;z-index:1}
-    .roulette-cell.red{background: radial-gradient(circle at top, #bb1e2c, #5d0410)}
-    .roulette-cell.black{background: radial-gradient(circle at top, #16151a, #040308)}
-    .roulette-cell.other{background: radial-gradient(circle at top, #13704c, #063423)}
-    .roulette-footer-text{
-      font-size:.7rem;
-      text-transform:uppercase;
-      letter-spacing:.15em;
-      color:rgba(255,255,255,.8);
-      text-align:center;
-      opacity:.9;
-    }
-    .roulette-footer-text span{color:var(--accent-neon-yellow)}
-
-    .odds-board{
-      border-radius:1.2rem;
-      background: radial-gradient(circle at top, #10151b, #05070a 60%);
-      border:2px solid rgba(255,255,255,.18);
-      box-shadow:0 0 22px rgba(0,0,0,.9), 0 0 26px rgba(0,0,0,.7);
-      padding:.9rem 1rem 1rem;
+    /* DICE + SLOT — CENTERED AGAIN */
+    .dice-row,
+    .slot-inner{
       display:flex;
-      flex-direction:column;
-      gap:.6rem;
-    }
-    .odds-title{
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--accent-neon-cyan);
-    }
-    .odds-sub{font-size:.75rem;color:rgba(255,255,255,.75)}
-    .odds-list{
-      margin-top:.2rem;
-      border-radius:.6rem;
-      background:repeating-linear-gradient(180deg,#131820 0,#131820 24px,#11151c 24px,#11151c 25px);
-      border:1px solid rgba(255,255,255,.14);
-      padding:.35rem .6rem;
-      max-height:190px;
-      overflow:hidden;
-    }
-    .odds-row{
-      display:flex;justify-content:space-between;align-items:center;
-      font-size:.76rem;
-      padding:.3rem .1rem;
-      color:#f0f4ff;
-      transition:background .18s ease-out, transform .18s ease-out, box-shadow .18s ease-out;
-    }
-    .odds-row span.name{text-transform:uppercase;letter-spacing:.12em;opacity:.9}
-    .odds-row span.odds{
-      font-family:"Monoton",cursive;
-      letter-spacing:.08em;
-      font-size:.86rem;
-      color:var(--accent-neon-yellow);
-      text-shadow:0 0 4px rgba(255,191,60,.9), 0 0 10px rgba(255,191,60,.9);
-    }
-    .odds-row.dim{opacity:.6}
-    .odds-row:hover{
-      background:rgba(255,255,255,.04);
-      transform:translateX(2px);
-      box-shadow:0 0 12px rgba(255,191,60,.35);
-    }
-
-    /* Dice section */
-    .dice-section{
-      margin-top:2.2rem;
-      margin-bottom:2rem;
-      border-radius:1.6rem;
-      background: radial-gradient(circle at top, #140018, #04000b 60%, #000 100%);
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow:0 0 26px rgba(0,0,0,.9), 0 0 32px rgba(255,77,243,.32);
-      padding:1.3rem 1.4rem 1.5rem;
-    }
-    .dice-heading{
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent-neon-yellow);
-      margin-bottom:.75rem;
-      display:inline-flex;
+      flex-wrap:wrap;
       align-items:center;
-      gap:.4rem;
-    }
-    .dice-heading::before{content:"🎲";font-size:1rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
-
-    /* ✅ hug the left for the dice content */
-    .dice-row{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:flex-start;
-  gap:1.4rem;
-    }
-    .dice-text-block{
-      flex:0 1 560px;
-      min-width:260px;
-      text-align:left;
+      justify-content:center;
+      gap:1.4rem;
     }
 
     .dice-button{
-      position:relative;
+      min-width:140px;
+      min-height:140px;
+      border-radius:1.2rem;
       border:none;
       cursor:pointer;
-      border-radius:1.2rem;
-      padding:0;
-      background: radial-gradient(circle at 30% 20%, #ffffff, #e3e6f0);
-      box-shadow:0 10px 24px rgba(0,0,0,.7), 0 0 18px rgba(37,240,255,.4);
-      display:inline-flex;
+      background:#fff;
+      display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      min-width:150px;
-      min-height:150px;
-      transition:transform .15s ease-out, box-shadow .15s ease-out;
-      color:#171722;
-      perspective:800px;
     }
-    .dice-button::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      border:2px solid rgba(0,0,0,.06);
-      box-shadow:inset 0 0 10px rgba(0,0,0,.12), inset 0 12px 18px rgba(255,255,255,.9);
-      pointer-events:none;
-    }
-    .dice-button:focus-visible{outline:2px solid #fff;outline-offset:4px}
-    .dice-face{
-      font-size:3rem;
-      text-shadow:0 0 4px rgba(0,0,0,.3), 0 0 12px rgba(0,0,0,.6);
-      transform:translateZ(8px);
-    }
+
+    .dice-face{font-size:3rem}
     .dice-label{
-      font-size:.75rem;
+      font-size:.7rem;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      letter-spacing:.16em;
-      font-weight:600;
       margin-top:.4rem;
-      color:#44465a;
-      transform:translateZ(8px);
-    }
-    .dice-button:hover{
-      transform:translateY(-4px) scale(1.03) rotateX(8deg);
-      box-shadow:0 14px 32px rgba(0,0,0,.8), 0 0 26px rgba(37,240,255,.6);
-    }
-    .dice-button.rolling{animation:diceShake .6s ease-in-out}
-    @keyframes diceShake{
-      0%{transform:translateX(0) rotate(0deg)}
-      20%{transform:translateX(-4px) rotate(-6deg)}
-      40%{transform:translateX(4px) rotate(6deg)}
-      60%{transform:translateX(-3px) rotate(-4deg)}
-      80%{transform:translateX(3px) rotate(4deg)}
-      100%{transform:translateX(0) rotate(0deg)}
     }
 
-    .dice-helper{font-size:.8rem;color:var(--text-muted);margin-bottom:.45rem}
-    .dice-result{
-      font-size:.9rem;
-      color:var(--accent-neon-cyan);
-      text-shadow:0 0 6px rgba(37,240,255,.9), 0 0 14px rgba(37,240,255,.8);
-    }
-    .dice-result span{color:var(--accent-neon-yellow);font-weight:600}
-    .dice-result.reveal{animation:diceReveal .45s ease-out}
-    @keyframes diceReveal{
-      0%{opacity:0;transform:translateY(4px)}
-      100%{opacity:1;transform:translateY(0)}
-    }
-
-    /* Slot machine */
-    .slot-section{
-      margin-bottom:.5rem;
-      border-radius:1.8rem;
-      background: radial-gradient(circle at top, #1b001f, #050008 60%, #000000 100%);
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 0 30px rgba(0,0,0,.9), 0 0 40px rgba(0,0,0,.7);
-      padding:1.4rem 1.4rem 1.6rem;
-    }
-    .slot-heading{
-      font-size:.78rem;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      color:var(--accent-neon-yellow);
-      margin-bottom:.8rem;
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-    }
-    .slot-heading::before{content:"💀";filter:drop-shadow(0 0 8px rgba(255,255,255,.8))}
-
-    /* ✅ CENTER the slot content */
-    .slot-inner{
-  display:flex;
-  flex-wrap:wrap;
-  gap:1.4rem;
-  align-items:center;
-  justify-content:flex-start;
-    }
+    .dice-text-block,
     .slot-text{
-      flex:0 1 560px;
-      min-width:260px;
-      text-align:left;
+      max-width:520px;
     }
 
-    .slot-machine{
-      flex:0 0 260px;
-      max-width:100%;
-      border-radius:1.4rem;
-      padding:1rem;
-      background:
-        radial-gradient(circle at top, #3a0414, #0c0007 60%),
-        linear-gradient(135deg, rgba(255,255,255,.08), rgba(0,0,0,.8));
-      box-shadow:
-        0 0 26px rgba(255,77,243,.6),
-        0 0 38px rgba(37,240,255,.4),
-        inset 0 0 14px rgba(0,0,0,.9);
-      border:2px solid rgba(255,255,255,.18);
-      position:relative;
-      overflow:hidden;
-    }
-    .slot-machine::before{
-      content:"";
-      position:absolute;
-      inset:-30%;
-      background:radial-gradient(circle at top, rgba(255,255,255,.12), transparent 55%);
-      opacity:.25;
-      pointer-events:none;
-    }
-    .slot-lights{
-      position:absolute;
-      inset:6px;
-      border-radius:1.2rem;
-      border:2px dotted rgba(255,255,255,.28);
-      pointer-events:none;
-    }
-    .slot-reels{
-      position:relative;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:.5rem;
-      margin-bottom:.9rem;
-      z-index:1;
-    }
-    .slot-reel{
-      border-radius:.7rem;
-      padding:.7rem .4rem;
-      background: radial-gradient(circle at top, #fefefe, #d7dde5);
-      box-shadow: inset 0 0 10px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.5);
-      text-align:center;
-      font-size:2.1rem;
-      color:#1a1924;
-    }
-    .slot-symbol{
-      display:inline-block;
-      text-shadow:0 0 4px rgba(0,0,0,.3), 0 0 10px rgba(0,0,0,.4);
-    }
-    .slot-button{
-      width:100%;
-      border-radius:999px;
-      border:none;
-      padding:.55rem 1rem;
-      cursor:pointer;
-      background: radial-gradient(circle at top, #ffe66b, #ff9f3c);
-      color:#301700;
+    .dice-helper,
+    .slot-helper{
       font-size:.8rem;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      box-shadow:0 4px 10px rgba(0,0,0,.7), 0 0 16px rgba(255,191,60,.7);
-      transition:transform .12s ease-out, box-shadow .12s ease-out;
-      position:relative;
-      z-index:1;
+      color:var(--text-muted);
+      margin-bottom:.4rem;
     }
-    .slot-button:hover:not(:disabled){
-      transform:translateY(-2px);
-      box-shadow:0 6px 14px rgba(0,0,0,.8), 0 0 22px rgba(255,191,60,.9);
-    }
-    .slot-button:disabled{opacity:.6;cursor:default}
-    .slot-helper{font-size:.8rem;color:var(--text-muted);margin-bottom:.45rem}
+
+    .dice-result,
     .slot-result{
       font-size:.9rem;
       color:var(--accent-neon-cyan);
-      text-shadow:0 0 6px rgba(37,240,255,.9), 0 0 14px rgba(37,240,255,.8);
-    }
-    .slot-result.jackpot{
-      color:var(--accent-neon-pink);
-      text-shadow:0 0 8px rgba(255,77,243,1), 0 0 18px rgba(255,191,60,.9), 0 0 28px rgba(37,240,255,.9);
-    }
-    .slot-result.reveal{animation:slotReveal .45s ease-out}
-    @keyframes slotReveal{
-      0%{opacity:0;transform:translateY(4px)}
-      100%{opacity:1;transform:translateY(0)}
     }
 
-    @media (max-width:600px){
-      body{padding:1.1rem}
-      .coming-soon,.roulette-section,.dice-section,.slot-section{padding:1.1rem 1rem 1.3rem}
-      .marquee-inner{padding:1.8rem 1.1rem 1.9rem}
+    .dice-result span{
+      color:var(--accent-neon-yellow);
+      font-weight:600;
+    }
 
-      /* Mobile: centered text blocks look better */
-      .dice-text-block,.slot-text{text-align:left}
+    .slot-machine{
+      max-width:260px;
+      border-radius:1.4rem;
+      padding:1rem;
+      background:#200010;
+    }
+
+    .slot-reels{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:.4rem;
+      margin-bottom:.8rem;
+    }
+
+    .slot-reel{
+      background:#fff;
+      border-radius:.6rem;
+      text-align:center;
+      font-size:2rem;
+      padding:.6rem 0;
+    }
+
+    .slot-button{
+      width:100%;
+      padding:.5rem;
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    @media (max-width:480px){
+      .title-main{font-size:2.2rem}
     }
   </style>
 </head>
 
 <body>
-  <div class="chip chip-left"></div>
-  <div class="chip chip-right"></div>
+<div class="page-wrapper">
 
-  <div class="page-wrapper">
-    <!-- FULL-WIDTH HERO (boxed marquee) -->
-    <section class="hero-row marquee-shell" aria-labelledby="site-title">
-      <div class="marquee-lights" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
+<section class="hero-row marquee-shell">
+  <div class="marquee-inner">
+    <p class="subtitle">Celebrity Death Bingo</p>
+    <h1 class="title-main">Deathwatch 2026</h1>
+    <p class="title-sub">Countdown to the first <span>grim bets</span> of the year.</p>
 
-      <div class="marquee-inner" id="marquee-inner">
-        <p class="subtitle">Celebrity Death Bingo</p>
-        <h1 id="site-title" class="title-main">Deathwatch 2026</h1>
-        <p class="title-sub">Countdown to the first <span>grim bets</span> of the year.</p>
+    <div id="countdown" class="countdown"></div>
 
-        <div class="countdown-wrapper">
-          <div id="countdown" class="countdown" aria-live="polite"></div>
-        </div>
-
-        <p id="countdown-footer" class="countdown-footer">
-          Starts at <strong>00:00</strong> on <strong>1 January 2026</strong> (Dublin time).
-        </p>
-      </div>
-    </section>
-
-    <!-- COMING SOON -->
-    <section class="coming-soon" aria-label="Coming soon features">
-      <h2 class="coming-heading">Coming Soon to Deathwatch 2026</h2>
-      <p class="coming-sub">
-        The lights are on and the tables are warming up. As we get closer to January, more of the casino will unlock.
-      </p>
-
-      <div class="coming-grid">
-        <article class="coming-card">
-          <h3 class="coming-title">Picks</h3>
-          <p class="coming-text">A simple list once entries are confirmed.</p>
-        </article>
-        <article class="coming-card">
-          <h3 class="coming-title">Scoreboard</h3>
-          <p class="coming-text">Live tracking once the game begins.</p>
-        </article>
-        <article class="coming-card">
-          <h3 class="coming-title">Rules</h3>
-          <p class="coming-text">Game rules and deadlines. (To be posted before the table opens.)</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ROULETTE + ODDS PREVIEW -->
-    <section class="roulette-section" aria-label="Roulette-style preview and house board">
-      <div class="roulette-inner">
-        <div>
-          <h2 class="roulette-heading">Table Layout </h2>
-          <div class="roulette-table">
-            <div class="roulette-grid" aria-hidden="true">
-              <div class="roulette-cell red"><span>Pick 1</span></div>
-              <div class="roulette-cell black"><span>Pick 2</span></div>
-              <div class="roulette-cell red"><span>Pick 3</span></div>
-              <div class="roulette-cell black"><span>Pick 4</span></div>
-              <div class="roulette-cell red"><span>Pick 5</span></div>
-              <div class="roulette-cell black"><span>Pick 6</span></div>
-              <div class="roulette-cell other"><span>Low</span></div>
-              <div class="roulette-cell other"><span>Even</span></div>
-              <div class="roulette-cell other"><span>High</span></div>
-            </div>
-            <p class="roulette-footer-text">
-              Future layout for <span>2026 picks</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="odds-board">
-          <h3 class="odds-title">House Odds Board </h3>
-          <p class="odds-sub">
-          </p>
-
-          <div class="odds-list">
-            <div class="odds-row"><span class="name">Clint Eastwood (He's like 100)</span><span class="odds">Evs</span></div>
-            <div class="odds-row"><span class="name">Bruce Willis</span><span class="odds">2/1</span></div>
-            <div class="odds-row"><span class="name">Donald Trump</span><span class="odds">5/1</span></div>
-            <div class="odds-row dim"><span class="name">Britney Spears</span><span class="odds">20/1</span></div>
-            <div class="odds-row dim"><span class="name">Prince Harry</span><span class="odds">50/1</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MYSTERY DICE -->
-    <section class="dice-section" aria-label="Mystery dice roll">
-      <h2 class="dice-heading">Mystery Roll</h2>
-      <div class="dice-row">
-        <button id="dice-button" type="button" class="dice-button">
-          <span class="dice-face" id="dice-face">⚅</span>
-          <span class="dice-label">Click to roll</span>
-        </button>
-        <div class="dice-text-block">
-          <p class="dice-helper">Click the dice for a random “mystery” result.</p>
-          <p class="dice-result" id="dice-result-text">Awaiting your first roll...</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKULL SLOT MACHINE -->
-    <section class="slot-section" aria-label="Skull slot machine">
-      <h2 class="slot-heading">Skull Slot Machine</h2>
-      <div class="slot-inner">
-        <div class="slot-machine">
-          <div class="slot-lights" aria-hidden="true"></div>
-          <div class="slot-reels">
-            <div class="slot-reel"><span class="slot-symbol" id="slot-reel-1">💀</span></div>
-            <div class="slot-reel"><span class="slot-symbol" id="slot-reel-2">🎰</span></div>
-            <div class="slot-reel"><span class="slot-symbol" id="slot-reel-3">🍒</span></div>
-          </div>
-          <button id="slot-button" type="button" class="slot-button">Spin the Reels</button>
-        </div>
-
-        <div class="slot-text">
-          <p class="slot-helper">Hit spin. If it hits, it hits.</p>
-          <p class="slot-result" id="slot-result-text">Machine is idle. Tempt fate?</p>
-        </div>
-      </div>
-    </section>
+    <p class="countdown-footer">
+      Starts at <strong>00:00</strong> on <strong>1 January 2026</strong> (Dublin time).
+    </p>
   </div>
+</section>
 
-  <script>
-    // ----------------------------
-    // Random helpers (crypto-first)
-    // ----------------------------
-    function randInt(maxExclusive) {
-      // returns integer in [0, maxExclusive)
-      if (maxExclusive <= 0) return 0;
+<section class="dice-section">
+  <h2 class="dice-heading">🎲 Mystery Roll</h2>
+  <div class="dice-row">
+    <button id="dice-button" class="dice-button">
+      <span id="dice-face" class="dice-face">⚅</span>
+      <span class="dice-label">Click to roll</span>
+    </button>
+    <div class="dice-text-block">
+      <p class="dice-helper">
+        Stuck for a pick? Roll the dice for a random nudge — ignore it at your own risk.
+      </p>
+      <p id="dice-result-text" class="dice-result">Awaiting your first roll…</p>
+    </div>
+  </div>
+</section>
 
-      const cryptoObj = window.crypto || window.msCrypto;
-      if (cryptoObj && cryptoObj.getRandomValues) {
-        const arr = new Uint32Array(1);
-        cryptoObj.getRandomValues(arr);
-        return arr[0] % maxExclusive;
-      }
-      return Math.floor(Math.random() * maxExclusive);
+<section class="slot-section">
+  <h2 class="slot-heading">💀 Skull Slot Machine</h2>
+  <div class="slot-inner">
+    <div class="slot-machine">
+      <div class="slot-reels">
+        <div class="slot-reel" id="slot-reel-1">💀</div>
+        <div class="slot-reel" id="slot-reel-2">🎰</div>
+        <div class="slot-reel" id="slot-reel-3">🍒</div>
+      </div>
+      <button id="slot-button" class="slot-button">Spin the Reels</button>
+    </div>
+    <div class="slot-text">
+      <p class="slot-helper">Hit spin. If it hits, it hits.</p>
+      <p id="slot-result-text" class="slot-result">Machine is idle.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+  /* COUNTDOWN */
+  const targetDate = new Date("2026-01-01T00:00:00Z");
+  const countdownEl = document.getElementById("countdown");
+
+  function updateCountdown(){
+    const now = new Date();
+    let diff = targetDate - now;
+    if(diff <= 0){
+      countdownEl.innerHTML = "<strong>Game On!</strong>";
+      return;
     }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    const s = Math.floor(diff%60000/1000);
+    countdownEl.innerHTML = `
+      <div class="countdown-tile"><div class="countdown-number">${d}</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-tile"><div class="countdown-number">${h}</div><div class="countdown-label">Hours</div></div>
+      <div class="countdown-tile"><div class="countdown-number">${m}</div><div class="countdown-label">Minutes</div></div>
+      <div class="countdown-tile"><div class="countdown-number">${s}</div><div class="countdown-label">Seconds</div></div>
+    `;
+  }
+  setInterval(updateCountdown,1000);
+  updateCountdown();
 
-    function shuffleInPlace(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = randInt(i + 1);
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
+  /* MYSTERY DICE */
+  const mysteryPool = ["The bar stool Hugo broke","Dry January","Motivation","Summer in Ireland"];
+  const diceBtn = document.getElementById("dice-button");
+  const diceFace = document.getElementById("dice-face");
+  const diceResult = document.getElementById("dice-result-text");
+  const faces = ["⚀","⚁","⚂","⚃","⚄","⚅"];
+
+  diceBtn.onclick = ()=>{
+    diceFace.textContent = faces[Math.floor(Math.random()*faces.length)];
+    const pick = mysteryPool[Math.floor(Math.random()*mysteryPool.length)];
+    diceResult.innerHTML = `The dice whispers: <span>${pick}</span>.`;
+  };
+
+  /* SLOT MACHINE */
+  const symbols = ["💀","💰","🍒","⭐","🎲"];
+  const r1 = document.getElementById("slot-reel-1");
+  const r2 = document.getElementById("slot-reel-2");
+  const r3 = document.getElementById("slot-reel-3");
+  const slotText = document.getElementById("slot-result-text");
+
+  document.getElementById("slot-button").onclick = ()=>{
+    const a = symbols[Math.floor(Math.random()*symbols.length)];
+    const b = symbols[Math.floor(Math.random()*symbols.length)];
+    const c = symbols[Math.floor(Math.random()*symbols.length)];
+    r1.textContent=a; r2.textContent=b; r3.textContent=c;
+
+    if(a===b && b===c){
+      slotText.textContent = "JACKPOT! Free drink at the bar.";
+    } else {
+      slotText.textContent = "House wins. As is tradition.";
     }
-
-    // Countdown: Jan 1st 2026 @ 00:00 Dublin time (UTC in January)
-    const targetDate = new Date("2026-01-01T00:00:00Z");
-
-    const countdownContainer = document.getElementById("countdown");
-    const countdownFooter = document.getElementById("countdown-footer");
-    const marqueeInner = document.getElementById("marquee-inner");
-    const countdownWrapper = countdownContainer.parentElement;
-
-    function createCountdownTiles() {
-      countdownContainer.innerHTML = "";
-      const parts = [
-        { id: "days", label: "Days" },
-        { id: "hours", label: "Hours" },
-        { id: "minutes", label: "Minutes" },
-        { id: "seconds", label: "Seconds" }
-      ];
-      parts.forEach(part => {
-        const tile = document.createElement("div");
-        tile.className = "countdown-tile";
-
-        const number = document.createElement("div");
-        number.className = "countdown-number";
-        number.id = `countdown-${part.id}`;
-        number.textContent = "--";
-
-        const label = document.createElement("div");
-        label.className = "countdown-label";
-        label.textContent = part.label;
-
-        tile.appendChild(number);
-        tile.appendChild(label);
-        countdownContainer.appendChild(tile);
-      });
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        countdownContainer.innerHTML = "";
-        const gameOn = document.createElement("div");
-        gameOn.className = "game-on";
-        gameOn.textContent = "Game On!";
-        countdownContainer.appendChild(gameOn);
-        countdownFooter.textContent = "The 2026 game has started.";
-        return true;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / (60 * 60 * 24));
-      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-      const seconds = totalSeconds % 60;
-
-      document.getElementById("countdown-days").textContent = String(days);
-      document.getElementById("countdown-hours").textContent = String(hours).padStart(2, "0");
-      document.getElementById("countdown-minutes").textContent = String(minutes).padStart(2, "0");
-      document.getElementById("countdown-seconds").textContent = String(seconds).padStart(2, "0");
-
-      return false;
-    }
-
-    function triggerCountdownFlash() {
-      countdownWrapper.classList.add("countdown-flash");
-      marqueeInner.classList.add("marquee-flash");
-      setTimeout(() => {
-        countdownWrapper.classList.remove("countdown-flash");
-        marqueeInner.classList.remove("marquee-flash");
-      }, 600);
-    }
-
-    createCountdownTiles();
-    let finished = updateCountdown();
-
-    if (!finished) {
-      setInterval(() => {
-        const done = updateCountdown();
-        if (!done) triggerCountdownFlash();
-      }, 15000);
-      setInterval(updateCountdown, 1000);
-    }
-
-    // ----------------------------
-    // Mystery Dice (shuffle-bag)
-    // ----------------------------
-    const diceButton = document.getElementById("dice-button");
-    const diceFace = document.getElementById("dice-face");
-    const diceResultText = document.getElementById("dice-result-text");
-
-    // Edit these locally as you like
-    const mysteryPool = [
-      "Bruce Forsythe",
-      "Charlie from Drumkeen",
-      "Dry January",
-      "Motivation",
-      "The last braincell",
-      "Daniel O'Donnell",
-      "Simon Harris",
-      "Roy Hodgson",
-      "The 2014 All Ireland Kerry Champions...... Bastard's...",
-      "Mel C (Lesbian Spice)",
-      "Hope",
-      "The Economy",
-      "The Immersion",
-      "Per my last email",
-      "Thought's?",
-      "Consult Maurice",
-      "Danny DeVito",
-      "David Hasslehoff",
-      "Paul McCartney",
-      "Line Dancing",
-      "The fella from RTE",
-      "The bar stool Hugo broke",
-      "That Covid's wile bad boys",
-      "People that clap when the plane lands",
-      "The grand stretch in the evening",
-      "Ah fuck this",
-      "Why is Penney's getting more expensive?",
-      "Queen Camilla",
-      "Jeremy Kyle",
-      "Roy Keane's current dog",
-      "12th of July March",
-      "Summer in Ireland"
-    ];
-
-    // A shuffled "bag" so it doesn't repeat until it's run through most items
-    let mysteryBag = [];
-
-    function refillMysteryBag() {
-      mysteryBag = mysteryPool.slice();
-      shuffleInPlace(mysteryBag);
-    }
-
-    const diceFaces = ["⚀","⚁","⚂","⚃","⚄","⚅"];
-    let diceRolling = false;
-
-    diceButton.addEventListener("click", () => {
-      if (diceRolling) return;
-      diceRolling = true;
-      diceButton.classList.add("rolling");
-
-      let tick = 0;
-      const maxTicks = 8;
-      const tickInterval = setInterval(() => {
-        diceFace.textContent = diceFaces[randInt(diceFaces.length)];
-        tick++;
-        if (tick >= maxTicks) clearInterval(tickInterval);
-      }, 60);
-
-      setTimeout(() => {
-        diceButton.classList.remove("rolling");
-
-        if (mysteryBag.length === 0) refillMysteryBag();
-        const pick = mysteryBag.pop();
-
-        diceResultText.classList.remove("reveal");
-        void diceResultText.offsetWidth;
-        diceResultText.innerHTML = 'The dice whispers: <span>' + pick + "</span>.";
-        diceResultText.classList.add("reveal");
-
-        diceFace.textContent = diceFaces[randInt(diceFaces.length)];
-        diceRolling = false;
-      }, 600);
-    });
-
-    // Prime the bag on load
-    refillMysteryBag();
-
-    // ----------------------------
-    // Skull Slot Machine (crypto rand)
-    // ----------------------------
-    const slotButton = document.getElementById("slot-button");
-    const reel1 = document.getElementById("slot-reel-1");
-    const reel2 = document.getElementById("slot-reel-2");
-    const reel3 = document.getElementById("slot-reel-3");
-    const slotResultText = document.getElementById("slot-result-text");
-
-    const slotSymbols = ["💀","💰","🍒","⭐","🎲","🕯️","🎰"];
-    let slotSpinning = false;
-
-    function randomSymbol(){ return slotSymbols[randInt(slotSymbols.length)] }
-
-    slotButton.addEventListener("click", () => {
-      if (slotSpinning) return;
-      slotSpinning = true;
-      slotButton.disabled = true;
-
-      // Slightly varied intervals so it feels less "patterned"
-      const t1 = setInterval(() => reel1.textContent = randomSymbol(), 65 + randInt(25));
-      const t2 = setInterval(() => reel2.textContent = randomSymbol(), 70 + randInt(25));
-      const t3 = setInterval(() => reel3.textContent = randomSymbol(), 75 + randInt(25));
-
-      const spinDuration = 900 + randInt(600);
-
-      setTimeout(() => {
-        clearInterval(t1); clearInterval(t2); clearInterval(t3);
-
-        const a = randomSymbol(), b = randomSymbol(), c = randomSymbol();
-        reel1.textContent = a; reel2.textContent = b; reel3.textContent = c;
-
-        slotResultText.classList.remove("jackpot","reveal");
-        void slotResultText.offsetWidth;
-
-        if (a === b && b === c) {
-          slotResultText.classList.add("jackpot");
-          slotResultText.textContent = "JACKPOT! Triple " + a + ".";
-        } else if (a === b || b === c || a === c) {
-          slotResultText.textContent = "Two of a kind. Close enough.";
-        } else {
-          slotResultText.textContent = "House wins. As is tradition.";
-        }
-        slotResultText.classList.add("reveal");
-
-        slotSpinning = false;
-        slotButton.disabled = false;
-      }, spinDuration);
-    });
-  </script>
+  };
+</script>
 </body>
 </html>
