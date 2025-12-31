@@ -82,18 +82,29 @@
       gap:.6rem;
       align-items:center;
       font-size:.8rem;
-      padding:.25rem 0;
+      padding:.28rem 0;
       border-bottom:1px dotted rgba(255,255,255,.08);
     }
 
     .pick:last-child{border-bottom:none}
 
+    /* ✅ FIX: use true monospace + fixed badge width */
     .pick-num{
-      font-family:"Monoton",cursive;
-      font-size:.85rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:.78rem;
       color:var(--neon-cyan);
-      min-width:32px;
-      text-align:right;
+
+      /* badge look */
+      min-width: 2.6em;          /* fixed width so 01–20 align */
+      text-align: center;
+      padding: .18rem .35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(37,240,255,.35);
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 0 10px rgba(37,240,255,.18), inset 0 0 10px rgba(0,0,0,.5);
+
+      /* ensures consistent digit widths where supported */
+      font-variant-numeric: tabular-nums;
     }
 
     .pick-name{
@@ -141,14 +152,14 @@
       "Table 3": [
         "Chuck Norris","Nick Nolte","Willie Nelson","Pete Murray","James Ivory",
         "Rupert Murdoch","Mark Rydell","Noam Chomsky","Tippi Hedren","Imelda Marcos",
-        "Petula Clark","Michael Caine","Shirley MacLaine","Frankie Valli","Nana Mouskouri",
-        "Judd Hirsch","Engelbert Humperdinck","Bruce Dern","Ray Anthony","Lee Grant"
+        "Eileen Hynes","Michael Caine","Shirley MacLaine","Frankie Valli","Nana Mouskouri",
+        "Judd Hirsch","Engelbert Humperdinck","Bruce Dern","Cliff Richard","Lee Grant"
       ],
       "Table 4": [
         "Harrison Ford","Celine Dion","Fiona Phillips","Rod Stewart","Barbara Knox",
         "Dustin Hoffman","William Roache","Chris Hoy","Pauline Quirke","Elton John",
-        "Sharon Osbourne","Michael J. Fox","Mick Jagger","Phil Collins","Clint Eastwood",
-        "James Hong","Donald Trump","Prince Charles","Sinéad Cusack","Mark Feehily"
+        "Sharon Osbourne","Michael J. Fox","Mick Jagger","Phil Collins","Neil Diamond",
+        "James Hong","Donald Trump","Prince Charles","Sinéad Cusack","Sir Ian Mc Kellen"
       ],
       "Table 5": [
         "Celine Dion","Miriam Margolyes","William Clyde Gibson","Blanche Taylor Moore","Jon Voight",
