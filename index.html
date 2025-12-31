@@ -20,6 +20,17 @@
       --card-bg:rgba(5,0,20,.85);
       --text-main:#f8f7ff;
       --text-muted:#c5c1ff;
+
+      .coming-link{
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+
+.coming-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 28px rgba(37,240,255,.35);
+}
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -710,16 +721,16 @@
 
     <!-- COMING SOON -->
     <section class="coming-soon" aria-label="Coming soon features">
-      <h2 class="coming-heading">Coming Soon to Deathwatch 2026</h2>
+      <h2 class="coming-heading">Deathwatch 2026</h2>
       <p class="coming-sub">
-        The lights are on and the tables are warming up. As we get closer to January, more of the casino will unlock.
+        The lights are on and the tables are warming up.
       </p>
 
       <div class="coming-grid">
-        <article class="coming-card">
-          <h3 class="coming-title">Picks</h3>
-          <p class="coming-text">A simple list once entries are confirmed.</p>
-        </article>
+        <a href="picks.html" class="coming-card coming-link">
+  <h3 class="coming-title">Picks</h3>
+  <p class="coming-text">A simple list once entries are confirmed.</p>
+</a>
         <article class="coming-card">
           <h3 class="coming-title">Scoreboard</h3>
           <p class="coming-text">Live tracking once the game begins.</p>
