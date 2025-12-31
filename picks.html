@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deathwatch 2026 – Picks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-start:#050018;
+      --bg-end:#1b0034;
+      --neon-pink:#ff4df3;
+      --neon-cyan:#25f0ff;
+      --neon-yellow:#ffe66b;
+      --card-bg:rgba(6,0,20,.88);
+      --text-main:#f8f7ff;
+      --text-muted:#c5c1ff;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family:"Poppins",sans-serif;
+      background: radial-gradient(circle at top, var(--bg-end), var(--bg-start) 60%, #000 100%);
+      color:var(--text-main);
+      min-height:100vh;
+      padding:1.4rem;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrapper{
+      width:100%;
+      max-width:1200px;
+    }
+
+    header{
+      text-align:center;
+      margin-bottom:2rem;
+    }
+
+    h1{
+      font-family:"Monoton",cursive;
+      font-size:clamp(2.2rem,5vw,4rem);
+      color:var(--neon-pink);
+      text-shadow:0 0 12px rgba(255,77,243,.9);
+      margin-bottom:.4rem;
+    }
+
+    .sub{
+      font-size:.9rem;
+      color:var(--text-muted);
+    }
+
+    .tables{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.2rem;
+    }
+
+    .table-card{
+      background:var(--card-bg);
+      border-radius:1.2rem;
+      padding:1rem;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 0 20px rgba(0,0,0,.7);
+    }
+
+    .table-title{
+      text-align:center;
+      font-size:.85rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--neon-yellow);
+      margin-bottom:.8rem;
+    }
+
+    .pick{
+      display:flex;
+      gap:.6rem;
+      align-items:center;
+      font-size:.8rem;
+      padding:.25rem 0;
+      border-bottom:1px dotted rgba(255,255,255,.08);
+    }
+
+    .pick:last-child{border-bottom:none}
+
+    .pick-num{
+      font-family:"Monoton",cursive;
+      font-size:.85rem;
+      color:var(--neon-cyan);
+      min-width:32px;
+      text-align:right;
+    }
+
+    .pick-name{
+      flex:1;
+    }
+
+    footer{
+      margin-top:2rem;
+      text-align:center;
+      font-size:.75rem;
+      color:var(--text-muted);
+      opacity:.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Deathwatch 2026</h1>
+      <p class="sub">Tables are set. Changes permitted until lock-in.</p>
+    </header>
+
+    <section class="tables" id="tables"></section>
+
+    <footer>
+      All entries shown anonymously. Table labels may be replaced later.
+    </footer>
+  </div>
+
+  <script>
+    const tables = {
+      "Table 1": [
+        "Bruce Willis","Anthony Hopkins","Robert Wagner","Joe Pesci","David Attenborough",
+        "Rosemary Harris","Jack Nicholson","Ray Anthony","Eva Marie Saint","Elisabeth Waldo",
+        "Jacqueline White","Julie Andrews","Dick Van Dyke","Clint Eastwood","Alan Greenspan",
+        "Mel Brooks","Samson Burke","Yukiko Tomoe","Kathy Starr","Irma Gonzalez"
+      ],
+      "Table 2": [
+        "Warren Beatty","John Williams","Harvey Weinstein","Smokey Robinson","Robert Duvall",
+        "Paul Simon","Tim Curry","Buzz Aldrin","Van Morrison","Enya",
+        "Florence Welch","Barry Manilow","Michael Douglas","Ellen Burstyn","Danny Glover",
+        "Joan Baez","Kate Bush","Harvey Keitel","Neil Young","Ted Turner"
+      ],
+      "Table 3": [
+        "Chuck Norris","Nick Nolte","Willie Nelson","Pete Murray","James Ivory",
+        "Rupert Murdoch","Mark Rydell","Noam Chomsky","Tippi Hedren","Imelda Marcos",
+        "Petula Clark","Michael Caine","Shirley MacLaine","Frankie Valli","Nana Mouskouri",
+        "Judd Hirsch","Engelbert Humperdinck","Bruce Dern","Ray Anthony","Lee Grant"
+      ],
+      "Table 4": [
+        "Harrison Ford","Celine Dion","Fiona Phillips","Rod Stewart","Barbara Knox",
+        "Dustin Hoffman","William Roache","Chris Hoy","Pauline Quirke","Elton John",
+        "Sharon Osbourne","Michael J. Fox","Mick Jagger","Phil Collins","Clint Eastwood",
+        "James Hong","Donald Trump","Prince Charles","Sinéad Cusack","Mark Feehily"
+      ],
+      "Table 5": [
+        "Celine Dion","Miriam Margolyes","William Clyde Gibson","Blanche Taylor Moore","Jon Voight",
+        "Ursula Andress","Ronald Adrian Gray","Sir Trevor McDonald","Petula Clark","Angela Rippon",
+        "Masahiko Harada","Carlos Ortiz","José Legrá","Prichard Colón","Jim Ray Smith",
+        "Rosey Grier","Clay Regazzoni","Maxie Dunnam","Philomena Begley","Mary Robinson"
+      ]
+    };
+
+    const container = document.getElementById("tables");
+
+    Object.entries(tables).forEach(([tableName,picks])=>{
+      const card=document.createElement("div");
+      card.className="table-card";
+
+      const title=document.createElement("div");
+      title.className="table-title";
+      title.textContent=tableName;
+      card.appendChild(title);
+
+      picks.forEach((name,i)=>{
+        const row=document.createElement("div");
+        row.className="pick";
+
+        const num=document.createElement("div");
+        num.className="pick-num";
+        num.textContent=String(i+1).padStart(2,"0");
+
+        const pickName=document.createElement("div");
+        pickName.className="pick-name";
+        pickName.textContent=name;
+
+        row.appendChild(num);
+        row.appendChild(pickName);
+        card.appendChild(row);
+      });
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
