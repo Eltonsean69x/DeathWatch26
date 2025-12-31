@@ -126,6 +126,28 @@
     <header>
       <h1>Deathwatch 2026</h1>
       <p class="sub">Tables are set. Changes permitted until lock-in.</p>
+      <a href="index.html" class="back-home">← Back to Home</a>
+
+.back-home{
+  display:inline-block;
+  margin-top:.8rem;
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--neon-cyan);
+  text-decoration:none;
+  padding:.4rem .8rem;
+  border:1px solid rgba(37,240,255,.35);
+  border-radius:999px;
+  transition:all .2s ease;
+}
+
+.back-home:hover{
+  color:#000;
+  background:var(--neon-cyan);
+  box-shadow:0 0 18px rgba(37,240,255,.7);
+}
+    
     </header>
 
     <section class="tables" id="tables"></section>
@@ -202,3 +224,4 @@
   </script>
 </body>
 </html>
+
