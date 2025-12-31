@@ -54,6 +54,26 @@
       color:var(--text-muted);
     }
 
+    /* ✅ Back button (properly in CSS, not in the page text) */
+    .back-home{
+      display:inline-block;
+      margin-top:.8rem;
+      font-size:.75rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--neon-cyan);
+      text-decoration:none;
+      padding:.45rem .9rem;
+      border:1px solid rgba(37,240,255,.35);
+      border-radius:999px;
+      transition:all .2s ease;
+    }
+    .back-home:hover{
+      color:#000;
+      background:var(--neon-cyan);
+      box-shadow:0 0 18px rgba(37,240,255,.7);
+    }
+
     .tables{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -85,26 +105,20 @@
       padding:.28rem 0;
       border-bottom:1px dotted rgba(255,255,255,.08);
     }
-
     .pick:last-child{border-bottom:none}
 
-    /* ✅ FIX: use true monospace + fixed badge width */
+    /* ✅ FIX: make the number a fixed-width “badge” so 01–20 always line up */
     .pick-num{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:.78rem;
+      font-family:"Monoton",cursive;
+      font-size:.85rem;
       color:var(--neon-cyan);
-
-      /* badge look */
-      min-width: 2.6em;          /* fixed width so 01–20 align */
-      text-align: center;
-      padding: .18rem .35rem;
-      border-radius: 999px;
-      border: 1px solid rgba(37,240,255,.35);
-      background: rgba(0,0,0,.35);
-      box-shadow: 0 0 10px rgba(37,240,255,.18), inset 0 0 10px rgba(0,0,0,.5);
-
-      /* ensures consistent digit widths where supported */
-      font-variant-numeric: tabular-nums;
+      width:44px;              /* fixed width column */
+      text-align:center;       /* centered inside badge */
+      flex:0 0 44px;           /* never shrink */
+      padding:.1rem .2rem;
+      border:1px solid rgba(37,240,255,.18);
+      border-radius:10px;
+      background:rgba(0,0,0,.22);
     }
 
     .pick-name{
@@ -126,28 +140,7 @@
     <header>
       <h1>Deathwatch 2026</h1>
       <p class="sub">Tables are set. Changes permitted until lock-in.</p>
-      <a href="index.html" class="back-home">← Back to Home</a>
-
-.back-home{
-  display:inline-block;
-  margin-top:.8rem;
-  font-size:.75rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--neon-cyan);
-  text-decoration:none;
-  padding:.4rem .8rem;
-  border:1px solid rgba(37,240,255,.35);
-  border-radius:999px;
-  transition:all .2s ease;
-}
-
-.back-home:hover{
-  color:#000;
-  background:var(--neon-cyan);
-  box-shadow:0 0 18px rgba(37,240,255,.7);
-}
-    
+      <a class="back-home" href="index.html">← Back to Home</a>
     </header>
 
     <section class="tables" id="tables"></section>
@@ -193,26 +186,26 @@
 
     const container = document.getElementById("tables");
 
-    Object.entries(tables).forEach(([tableName,picks])=>{
-      const card=document.createElement("div");
-      card.className="table-card";
+    Object.entries(tables).forEach(([tableName, picks]) => {
+      const card = document.createElement("div");
+      card.className = "table-card";
 
-      const title=document.createElement("div");
-      title.className="table-title";
-      title.textContent=tableName;
+      const title = document.createElement("div");
+      title.className = "table-title";
+      title.textContent = tableName;
       card.appendChild(title);
 
-      picks.forEach((name,i)=>{
-        const row=document.createElement("div");
-        row.className="pick";
+      picks.forEach((name, i) => {
+        const row = document.createElement("div");
+        row.className = "pick";
 
-        const num=document.createElement("div");
-        num.className="pick-num";
-        num.textContent=String(i+1).padStart(2,"0");
+        const num = document.createElement("div");
+        num.className = "pick-num";
+        num.textContent = String(i + 1).padStart(2, "0");
 
-        const pickName=document.createElement("div");
-        pickName.className="pick-name";
-        pickName.textContent=name;
+        const pickName = document.createElement("div");
+        pickName.className = "pick-name";
+        pickName.textContent = name;
 
         row.appendChild(num);
         row.appendChild(pickName);
@@ -224,4 +217,3 @@
   </script>
 </body>
 </html>
-
