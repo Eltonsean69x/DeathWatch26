@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deathwatch 2026 – Scoreboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-start:#050018;
+      --bg-end:#1b0034;
+      --neon-pink:#ff4df3;
+      --neon-cyan:#25f0ff;
+      --neon-yellow:#ffe66b;
+      --card-bg:rgba(6,0,20,.88);
+      --text-main:#f8f7ff;
+      --text-muted:#c5c1ff;
+      --line:rgba(255,255,255,.10);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family:"Poppins",sans-serif;
+      background: radial-gradient(circle at top, var(--bg-end), var(--bg-start) 60%, #000 100%);
+      color:var(--text-main);
+      min-height:100vh;
+      padding:1.4rem;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrapper{ width:100%; max-width:1000px; }
+
+    header{
+      text-align:center;
+      margin-bottom:1.2rem;
+    }
+
+    h1{
+      font-family:"Monoton",cursive;
+      font-size:clamp(2.1rem,5vw,3.6rem);
+      color:var(--neon-pink);
+      text-shadow:0 0 12px rgba(255,77,243,.9);
+      margin-bottom:.4rem;
+    }
+
+    .sub{ font-size:.9rem; color:var(--text-muted); }
+
+    .top-actions{
+      margin-top:.9rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .pill{
+      display:inline-block;
+      font-size:.75rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:.45rem .9rem;
+      border-radius:999px;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.20);
+      color:rgba(255,255,255,.9);
+      transition:all .2s ease;
+      user-select:none;
+    }
+
+    .pill:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 16px rgba(37,240,255,.18);
+    }
+
+    .pill.primary{
+      color:#000;
+      background:var(--neon-cyan);
+      border:1px solid rgba(37,240,255,.35);
+      box-shadow:0 0 18px rgba(37,240,255,.25);
+    }
+
+    .board{
+      margin-top:1.2rem;
+      background:var(--card-bg);
+      border-radius:1.2rem;
+      padding:1rem;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 0 20px rgba(0,0,0,.7);
+    }
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:.75rem .6rem;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .row:last-child{ border-bottom:none; }
+
+    .left{
+      display:flex;
+      flex-direction:column;
+      gap:.15rem;
+      min-width: 140px;
+    }
+
+    .table-name{
+      font-size:.85rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--neon-yellow);
+    }
+
+    .mini{
+      font-size:.8rem;
+      color:var(--text-muted);
+      opacity:.9;
+    }
+
+    .score{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-variant-numeric: tabular-nums;
+      font-size:1.1rem;
+      padding:.25rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(37,240,255,.22);
+      background:rgba(0,0,0,.22);
+      color:var(--neon-cyan);
+      min-width: 84px;
+      text-align:center;
+      box-shadow:0 0 14px rgba(37,240,255,.10);
+    }
+
+    .leader{
+      border:1px solid rgba(255,230,107,.25);
+      background: radial-gradient(circle at top, rgba(255,230,107,.08), rgba(0,0,0,.22));
+    }
+    .leader .score{
+      color:#000;
+      background:var(--neon-yellow);
+      border-color: rgba(255,230,107,.40);
+      box-shadow:0 0 18px rgba(255,230,107,.22);
+    }
+
+    .hint{
+      margin-top:.9rem;
+      text-align:center;
+      color:var(--text-muted);
+      font-size:.8rem;
+      opacity:.9;
+      line-height:1.45;
+    }
+    .hint strong{ color:var(--neon-cyan); font-weight:700; }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Scoreboard</h1>
+      <p class="sub">Auto-counts crossed-out picks from the Picks page (on this device).</p>
+
+      <div class="top-actions">
+        <a class="pill" href="index.html">← Home</a>
+        <a class="pill primary" href="picks.html">Picks →</a>
+      </div>
+    </header>
+
+    <section class="board" id="board"></section>
+
+    <div class="hint">
+      <strong>Important:</strong> this scoreboard reads your local crossed-out marks (browser storage).
+      If you open on a different phone/laptop, it won’t have the same marks unless you mark them again there.
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_HITS = "dw26_hits";
+    const STORAGE_TABLES = "dw26_tables";
+
+    function loadJSON(key, fallback){
+      try{
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch(e){
+        return fallback;
+      }
+    }
+
+    // Read tables from picks page (so you don't duplicate edits)
+    const tables = loadJSON(STORAGE_TABLES, {});
+    const hits = loadJSON(STORAGE_HITS, {});
+
+    function countHitsForTable(tableName){
+      let c = 0;
+      const picks = tables[tableName] || [];
+      for(let i=0;i<picks.length;i++){
+        const k = tableName + "::" + i;
+        if(hits[k]) c++;
+      }
+      return c;
+    }
+
+    const board = document.getElementById("board");
+    const tableNames = Object.keys(tables);
+
+    if(tableNames.length === 0){
+      board.innerHTML = `
+        <div class="row">
+          <div class="left">
+            <div class="table-name">No data</div>
+            <div class="mini">Open <strong>Picks</strong> first so this page can read the tables.</div>
+          </div>
+          <div class="score">—</div>
+        </div>
+      `;
+    } else {
+      // Build scores
+      const scores = tableNames.map(name => ({
+        name,
+        hits: countHitsForTable(name),
+        total: (tables[name] || []).length
+      }));
+
+      // Determine leader(s)
+      const max = Math.max(...scores.map(s => s.hits));
+
+      // Render
+      board.innerHTML = "";
+      scores.forEach(s => {
+        const row = document.createElement("div");
+        row.className = "row" + (s.hits === max && max > 0 ? " leader" : "");
+
+        const left = document.createElement("div");
+        left.className = "left";
+
+        const t = document.createElement("div");
+        t.className = "table-name";
+        t.textContent = s.name;
+
+        const mini = document.createElement("div");
+        mini.className = "mini";
+        mini.textContent = `${s.hits} hit(s) out of ${s.total}`;
+
+        left.appendChild(t);
+        left.appendChild(mini);
+
+        const score = document.createElement("div");
+        score.className = "score";
+        score.textContent = String(s.hits);
+
+        row.appendChild(left);
+        row.appendChild(score);
+        board.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
