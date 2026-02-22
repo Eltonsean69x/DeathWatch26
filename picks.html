@@ -17,6 +17,7 @@
       --card-bg:rgba(6,0,20,.88);
       --text-main:#f8f7ff;
       --text-muted:#c5c1ff;
+      --line:rgba(255,255,255,.10);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -31,15 +32,9 @@
       justify-content:center;
     }
 
-    .wrapper{
-      width:100%;
-      max-width:1200px;
-    }
+    .wrapper{ width:100%; max-width:1200px; }
 
-    header{
-      text-align:center;
-      margin-bottom:2rem;
-    }
+    header{ text-align:center; margin-bottom:1.2rem; }
 
     h1{
       font-family:"Monoton",cursive;
@@ -49,30 +44,58 @@
       margin-bottom:.4rem;
     }
 
-    .sub{
-      font-size:.9rem;
-      color:var(--text-muted);
+    .sub{ font-size:.9rem; color:var(--text-muted); }
+
+    .top-actions{
+      margin-top:.9rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.6rem;
+      align-items:center;
+      justify-content:center;
     }
 
-    /* ✅ Back button (properly in CSS, not in the page text) */
-    .back-home{
+    .pill{
       display:inline-block;
-      margin-top:.8rem;
       font-size:.75rem;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
       text-transform:uppercase;
-      color:var(--neon-cyan);
-      text-decoration:none;
       padding:.45rem .9rem;
-      border:1px solid rgba(37,240,255,.35);
       border-radius:999px;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.20);
+      color:rgba(255,255,255,.9);
       transition:all .2s ease;
+      user-select:none;
     }
-    .back-home:hover{
+
+    .pill:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 16px rgba(37,240,255,.18);
+    }
+
+    .pill.primary{
       color:#000;
       background:var(--neon-cyan);
-      box-shadow:0 0 18px rgba(37,240,255,.7);
+      border:1px solid rgba(37,240,255,.35);
+      box-shadow:0 0 18px rgba(37,240,255,.25);
     }
+
+    .pill.warn{
+      border-color: rgba(255,77,243,.35);
+      color: var(--neon-pink);
+    }
+
+    .legend{
+      margin: .9rem auto 1.2rem;
+      max-width: 900px;
+      text-align:center;
+      color: var(--text-muted);
+      font-size: .85rem;
+      line-height: 1.45;
+    }
+    .legend strong{ color: var(--neon-yellow); font-weight: 700; }
 
     .tables{
       display:grid;
@@ -102,27 +125,47 @@
       gap:.6rem;
       align-items:center;
       font-size:.8rem;
-      padding:.28rem 0;
+      padding:.3rem 0;
       border-bottom:1px dotted rgba(255,255,255,.08);
+      cursor:pointer;
+      border-radius: .5rem;
+      transition: background .15s ease, transform .12s ease;
+    }
+    .pick:hover{
+      background: rgba(255,255,255,.03);
+      transform: translateX(2px);
     }
     .pick:last-child{border-bottom:none}
 
-    /* ✅ FIX: make the number a fixed-width “badge” so 01–20 always line up */
     .pick-num{
-      font-family:"Monoton",cursive;
-      font-size:.85rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:.78rem;
       color:var(--neon-cyan);
-      width:44px;              /* fixed width column */
-      text-align:center;       /* centered inside badge */
-      flex:0 0 44px;           /* never shrink */
-      padding:.1rem .2rem;
+      width:44px;
+      text-align:center;
+      flex:0 0 44px;
+      padding:.12rem .2rem;
       border:1px solid rgba(37,240,255,.18);
       border-radius:10px;
       background:rgba(0,0,0,.22);
+      font-variant-numeric: tabular-nums;
     }
 
-    .pick-name{
-      flex:1;
+    .pick-name{ flex:1; }
+
+    /* ✅ Crossed-out / scored style */
+    .pick.hit .pick-name{
+      text-decoration: line-through;
+      opacity: .55;
+    }
+    .pick.hit{
+      background: rgba(255,77,243,.06);
+    }
+    .pick.hit .pick-num{
+      color: #000;
+      background: var(--neon-yellow);
+      border-color: rgba(255,230,107,.45);
+      box-shadow: 0 0 12px rgba(255,230,107,.25);
     }
 
     footer{
@@ -139,24 +182,35 @@
   <div class="wrapper">
     <header>
       <h1>Deathwatch 2026</h1>
-      <p class="sub">Tables are set. Changes permitted until lock-in.</p>
-      <a class="back-home" href="index.html">← Back to Home</a>
+      <p class="sub">Click a name to mark it as a hit. Click again to undo.</p>
+
+      <div class="top-actions">
+        <a class="pill" href="index.html">← Home</a>
+        <a class="pill primary" href="scoreboard.html">Scoreboard →</a>
+        <button class="pill warn" id="resetBtn" type="button" title="Clears all crossed-out marks on this device">Reset Marks</button>
+      </div>
     </header>
+
+    <div class="legend">
+      <strong>How it works:</strong> tap/click a pick to cross it out. It saves automatically on your device.
+      The <strong>Scoreboard</strong> counts crossed-out picks per table.
+    </div>
 
     <section class="tables" id="tables"></section>
 
     <footer>
-      All entries shown anonymously. Table labels may be replaced later.
+      Tables shown anonymously. (You can rename Table 1–5 later if you decide to.)
     </footer>
   </div>
 
   <script>
+    // ====== PICKS DATA (edit here anytime) ======
     const tables = {
       "Table 1": [
-        "Bruce Willis","Dave Coulier","Robert Wagner","Joe Pesci","David Attenborough",
+        "Bruce Willis","Anthony Hopkins","Robert Wagner","Joe Pesci","David Attenborough",
         "Rosemary Harris","Jack Nicholson","Ray Anthony","Eva Marie Saint","Elisabeth Waldo",
         "Jacqueline White","Julie Andrews","Dick Van Dyke","Clint Eastwood","Alan Greenspan",
-        "Mel Brooks","Samson Burke","Yukiko Tomoe","Kathy Starr","Eric Dane"
+        "Mel Brooks","Samson Burke","Yukiko Tomoe","Kathy Starr","Irma Gonzalez"
       ],
       "Table 2": [
         "Warren Beatty","John Williams","Harvey Weinstein","Smokey Robinson","Robert Duvall",
@@ -184,37 +238,95 @@
       ]
     };
 
+    // Save tables in localStorage so scoreboard can read the same data without you duplicating it.
+    try { localStorage.setItem("dw26_tables", JSON.stringify(tables)); } catch(e){}
+
     const container = document.getElementById("tables");
+    const STORAGE_KEY = "dw26_hits"; // stores { "Table 1::0": true, ... }
 
-    Object.entries(tables).forEach(([tableName, picks]) => {
-      const card = document.createElement("div");
-      card.className = "table-card";
+    function loadHits(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch(e){
+        return {};
+      }
+    }
 
-      const title = document.createElement("div");
-      title.className = "table-title";
-      title.textContent = tableName;
-      card.appendChild(title);
+    function saveHits(hits){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(hits)); } catch(e){}
+    }
 
-      picks.forEach((name, i) => {
-        const row = document.createElement("div");
-        row.className = "pick";
+    const hits = loadHits();
 
-        const num = document.createElement("div");
-        num.className = "pick-num";
-        num.textContent = String(i + 1).padStart(2, "0");
+    function keyFor(tableName, index){
+      return tableName + "::" + index;
+    }
 
-        const pickName = document.createElement("div");
-        pickName.className = "pick-name";
-        pickName.textContent = name;
+    function render(){
+      container.innerHTML = "";
 
-        row.appendChild(num);
-        row.appendChild(pickName);
-        card.appendChild(row);
+      Object.entries(tables).forEach(([tableName, picks]) => {
+        const card = document.createElement("div");
+        card.className = "table-card";
+
+        const title = document.createElement("div");
+        title.className = "table-title";
+        title.textContent = tableName;
+        card.appendChild(title);
+
+        picks.forEach((name, i) => {
+          const row = document.createElement("div");
+          row.className = "pick";
+          row.setAttribute("role","button");
+          row.setAttribute("tabindex","0");
+          row.setAttribute("aria-label", `Toggle hit for ${tableName} pick ${i+1}: ${name}`);
+
+          const num = document.createElement("div");
+          num.className = "pick-num";
+          num.textContent = String(i + 1).padStart(2, "0");
+
+          const pickName = document.createElement("div");
+          pickName.className = "pick-name";
+          pickName.textContent = name;
+
+          row.appendChild(num);
+          row.appendChild(pickName);
+
+          const k = keyFor(tableName, i);
+          if (hits[k]) row.classList.add("hit");
+
+          function toggle(){
+            row.classList.toggle("hit");
+            hits[k] = row.classList.contains("hit");
+            saveHits(hits);
+          }
+
+          row.addEventListener("click", toggle);
+          row.addEventListener("keydown", (e) => {
+            if(e.key === "Enter" || e.key === " "){
+              e.preventDefault();
+              toggle();
+            }
+          });
+
+          card.appendChild(row);
+        });
+
+        container.appendChild(card);
       });
+    }
 
-      container.appendChild(card);
+    render();
+
+    // Reset button (clears all marked hits on this device)
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      const ok = confirm("Reset all crossed-out marks on this device?");
+      if(!ok) return;
+      for (const k of Object.keys(hits)) delete hits[k];
+      saveHits(hits);
+      render();
     });
   </script>
 </body>
 </html>
-
